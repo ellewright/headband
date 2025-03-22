@@ -4,6 +4,8 @@ import { ObjectId } from "mongodb";
 
 const statusCodes = {
     OK: 200,
+    CREATED: 201,
+    NO_CONTENT: 204,
     BAD_REQUEST: 400,
     INTERNAL_SERVER_ERROR: 500
 }
@@ -20,7 +22,7 @@ export async function createNewEntry(req, res) {
 
     try {
         const savedEntry = newEntry.save();
-        return res.status(statusCodes.OK).json({
+        return res.status(statusCodes.CREATED).json({
             success: true,
             data: newEntry
         });
@@ -95,7 +97,7 @@ export async function deleteEntry(req, res) {
 
     try {
         const entryToDelete = await Entry.findByIdAndDelete(id);
-        res.status(statusCodes.OK).json({
+        res.status(statusCodes.NO_CONTENT).json({
             success: true,
             message: "Entry successfully deleted."
         });
