@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const entrySchema = new mongoose.Schema({
     isbn: {
-        type: Number,
+        type: String,
         required: false
     },
     name: {
@@ -11,6 +11,10 @@ const entrySchema = new mongoose.Schema({
     },
     author: {
         type: String,
+        required: false
+    },
+    publicationYear: {
+        type: Number,
         required: false
     },
     genre: {
