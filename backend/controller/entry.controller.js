@@ -98,10 +98,7 @@ export async function deleteEntry(req, res) {
 
     try {
         await Entry.findByIdAndDelete(id);
-        res.status(statusCodes.NO_CONTENT).json({
-            success: true,
-            message: "Entry successfully deleted."
-        });
+        res.status(statusCodes.NO_CONTENT);
     } catch (error) {
         console.error(`Error in deleting entry: ${error.message}`);
         res.status(statusCodes.INTERNAL_SERVER_ERROR).json({
