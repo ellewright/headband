@@ -1,4 +1,6 @@
+import mongoose from "mongoose";
 import Entry from "../model/entry.model.js";
+import { ObjectId } from "mongodb";
 
 export async function createNewEntry(req, res) {
     const newEntry = new Entry(req.body);
@@ -40,3 +42,28 @@ export async function getAllEntries(req, res) {
         });
     };
 };
+
+export async function deleteEntry(req, res) {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({
+            success: false,
+            message: "Please provide a valid ID to delete."
+        });
+    };
+
+    try {
+        const entryToDelete = await Entry.findByIdAndDelete(id);
+        res.status(200).json({
+            success: true,
+            message: "Entry successfully deleted."
+        });
+    } catch (error) {
+        console.error(`Error in deleting entry: ${error.message}`);
+        res.status(500).json({
+            success: false,
+            message: `Server error in deleting entry: ${error.message}`
+        });
+    };
+}
