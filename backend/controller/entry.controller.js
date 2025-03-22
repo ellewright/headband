@@ -1,4 +1,4 @@
-import Entry from "../model/entry.model";
+import Entry from "../model/entry.model.js";
 
 export async function getAllEntries(req, res) {
     try {
