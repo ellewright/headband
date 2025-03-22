@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import Entry from "../model/entry.model.js";
-import { ObjectId } from "mongodb";
 
 const statusCodes = {
     OK: 200,
@@ -8,7 +7,7 @@ const statusCodes = {
     NO_CONTENT: 204,
     BAD_REQUEST: 400,
     INTERNAL_SERVER_ERROR: 500
-}
+};
 
 export async function createNewEntry(req, res) {
     const newEntry = new Entry(req.body);
@@ -21,9 +20,10 @@ export async function createNewEntry(req, res) {
     };
 
     try {
-        const savedEntry = newEntry.save();
+        await newEntry.save();
         return res.status(statusCodes.CREATED).json({
             success: true,
+            message: "Entry created successfully.",
             data: newEntry
         });
     } catch (error) {
@@ -40,6 +40,7 @@ export async function getAllEntries(req, res) {
         const entries = await Entry.find({});
         res.status(statusCodes.OK).json({
             success: true,
+            message: "Successfully fetched all entries.",
             data: entries
         });
     } catch (error) {
@@ -96,7 +97,7 @@ export async function deleteEntry(req, res) {
     };
 
     try {
-        const entryToDelete = await Entry.findByIdAndDelete(id);
+        await Entry.findByIdAndDelete(id);
         res.status(statusCodes.NO_CONTENT).json({
             success: true,
             message: "Entry successfully deleted."
@@ -108,4 +109,4 @@ export async function deleteEntry(req, res) {
             message: `Server error in deleting entry: ${error.message}`
         });
     };
-}
+};
