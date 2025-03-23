@@ -1,5 +1,5 @@
 import express from "express";
-import { createNewEntry, getAllEntries, updateEntry, deleteEntry } from "../controller/entry.controller.js";
+import { createNewEntry, deleteEntry, getAllEntries, updateEntry } from "../controller/entry.controller";
 
 const router = express.Router();
 
