@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 import { connectDB } from "./config/db";
 import entryRouter from "./router/entry.router"
 
+const cors = require("cors");
+
 dotenv.config();
 
 const app = express();
@@ -13,6 +15,7 @@ if (!PORT) {
 }
 
 app.use(express.json());
+app.use(cors());
 app.use("/api/entries", entryRouter);
 
 app.listen(PORT, () => {
