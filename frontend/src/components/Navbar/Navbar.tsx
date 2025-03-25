@@ -1,6 +1,9 @@
 import { AppBar, Button, Stack, Toolbar, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
+    const navigate = useNavigate();
+
     return (
         <AppBar>
             <Toolbar>
@@ -17,10 +20,16 @@ export default function Navbar() {
                     direction="row"
                     spacing={2}
                 >
-                    <Button color="inherit">
+                    <Button
+                        color="inherit"
+                        onClick={() => navigate("/")}
+                    >
                         Home
                     </Button>
-                    <Button color="inherit">
+                    <Button
+                        color="inherit"
+                        onClick={() => navigate("/add")}
+                    >
                         Add
                     </Button>
                 </Stack>
