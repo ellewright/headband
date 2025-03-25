@@ -1,6 +1,14 @@
 import { Paper, Typography } from "@mui/material";
 
-export default function EntryCard() {
+interface EntryCardProps {
+    isbn: string | undefined;
+    title: string;
+    author: string | undefined;
+    genre: string | undefined;
+    publicationYear: number | undefined;
+}
+
+export default function EntryCard({ isbn, title, author, genre, publicationYear }: EntryCardProps) {
     return (
         <Paper
             variant="outlined"
@@ -8,10 +16,19 @@ export default function EntryCard() {
             <Typography
                 variant="h6"
             >
-                Getting Through to People
+                {title}
             </Typography>
             <Typography>
-                Jesse S. Nirenberg
+                {author}
+            </Typography>
+            <Typography>
+                {isbn}
+            </Typography>
+            <Typography>
+                {genre}
+            </Typography>
+            <Typography>
+                {publicationYear}
             </Typography>
         </Paper>
     );
