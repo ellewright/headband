@@ -23,7 +23,6 @@ export default function Home() {
                     marginTop: "5.5rem"
                 }}
             >
-                Home
             </Typography>
             {entries.map((entry) => (
                 <EntryCard

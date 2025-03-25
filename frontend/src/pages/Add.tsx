@@ -1,4 +1,5 @@
 import { Container, Typography } from "@mui/material";
+import NewEntryForm from "../components/NewEntryForm/NewEntryForm";
 
 export default function Add() {
     return (
@@ -8,8 +9,8 @@ export default function Add() {
                     marginTop: "5.5rem"
                 }}
             >
-                Add
             </Typography>
+            <NewEntryForm />
         </Container>
     );
 };
