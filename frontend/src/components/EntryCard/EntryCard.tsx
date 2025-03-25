@@ -1,14 +1,7 @@
 import { Paper, Typography } from "@mui/material";
+import { Entry } from "../../interfaces/Entry";
 
-interface EntryCardProps {
-    isbn: string | undefined;
-    title: string;
-    author: string | undefined;
-    genre: string | undefined;
-    publicationYear: number | undefined;
-}
-
-export default function EntryCard({ isbn, title, author, genre, publicationYear }: EntryCardProps) {
+export default function EntryCard({ isbn, title, author, genre, publicationYear }: Entry) {
     return (
         <Paper
             variant="outlined"

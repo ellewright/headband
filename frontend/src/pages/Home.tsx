@@ -27,6 +27,7 @@ export default function Home() {
             </Typography>
             {entries.map((entry) => (
                 <EntryCard
+                    _id={entry._id}
                     key={entry._id}
                     isbn={entry.isbn}
                     title={entry.title}
