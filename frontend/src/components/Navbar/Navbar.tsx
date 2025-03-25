@@ -17,8 +17,12 @@ export default function Navbar() {
                     direction="row"
                     spacing={2}
                 >
-                    <Button color="inherit">Home</Button>
-                    <Button color="inherit">Add</Button>
+                    <Button color="inherit">
+                        Home
+                    </Button>
+                    <Button color="inherit">
+                        Add
+                    </Button>
                 </Stack>
             </Toolbar>
         </AppBar>
