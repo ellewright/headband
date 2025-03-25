@@ -4,7 +4,7 @@ export default function Add() {
     return (
         <Typography
             sx={{
-                marginTop: "4.5rem"
+                marginTop: "5.5rem"
             }}
         >
             Add

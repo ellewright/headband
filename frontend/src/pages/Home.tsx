@@ -1,13 +1,15 @@
-import { Typography } from "@mui/material";
+import { Container, Grid2, Typography } from "@mui/material";
 
 export default function Home() {
     return (
-        <Typography
-            sx={{
-                marginTop: "4.5rem"
-            }}
-        >
-            Home
-        </Typography>
+        <Container>
+            <Typography
+                sx={{
+                    marginTop: "5.5rem"
+                }}
+            >
+                Home
+            </Typography>
+        </Container>
     );
 };
