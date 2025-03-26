@@ -17,6 +17,9 @@ export default function EntryCard({ _id, isbn, title, author, genre, publication
         return (
             <Paper
                 variant="outlined"
+                sx={{
+                    p: 2
+                }}
             >
                 <Typography
                     variant="h6"
@@ -32,7 +35,11 @@ export default function EntryCard({ _id, isbn, title, author, genre, publication
                 <Typography>
                     {genre}
                 </Typography>
-                <Typography>
+                <Typography
+                    sx={{
+                        mb: 1
+                    }}
+                >
                     {publicationYear}
                 </Typography>
                 <Button
