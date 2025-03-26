@@ -14,7 +14,7 @@ export default function Home() {
         };
 
         fetchEntries();
-    }, []);
+    }, [entries]);
 
     return (
         <Container>

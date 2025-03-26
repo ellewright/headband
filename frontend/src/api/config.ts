@@ -26,3 +26,11 @@ export async function fetchAllEntriesfromDatabase() {
     if (!response.ok) throw new Error("Failed to fetch all entries.");
     return await response.json();
 };
+
+export async function deleteEntryFromDatabase(id: string) {
+    const response = await fetch(`${baseURL}/api/entries/${id}`, {
+        method: "DELETE"
+    });
+
+    if (!response.ok) throw new Error("Failed to delete entry.");
+};
