@@ -2,39 +2,61 @@ import { Button, Paper, Typography } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Entry } from "../../interfaces/Entry";
 import { deleteEntryFromDatabase } from "../../api/config";
+import { useState } from "react";
+import { Edit } from "@mui/icons-material";
+import UpdateEntryForm from "../UpdateEntryForm/UpdateEntryForm";
 
 export default function EntryCard({ _id, isbn, title, author, genre, publicationYear }: Entry) {
+    const [isUpdating, setIsUpdating] = useState<boolean>(false);
 
     async function handleDelete(id: string) {
         await deleteEntryFromDatabase(id);
     };
 
-    return (
-        <Paper
-            variant="outlined"
-        >
-            <Typography
-                variant="h6"
+    if (!isUpdating) {
+        return (
+            <Paper
+                variant="outlined"
             >
-                {title}
-            </Typography>
-            <Typography>
-                {author}
-            </Typography>
-            <Typography>
-                {isbn}
-            </Typography>
-            <Typography>
-                {genre}
-            </Typography>
-            <Typography>
-                {publicationYear}
-            </Typography>
-            <Button
-                onClick={() => handleDelete(_id)}
-            >
-                <DeleteIcon />
-            </Button>
-        </Paper>
-    );
+                <Typography
+                    variant="h6"
+                >
+                    {title}
+                </Typography>
+                <Typography>
+                    {author}
+                </Typography>
+                <Typography>
+                    {isbn}
+                </Typography>
+                <Typography>
+                    {genre}
+                </Typography>
+                <Typography>
+                    {publicationYear}
+                </Typography>
+                <Button
+                    onClick={() => handleDelete(_id)}
+                >
+                    <DeleteIcon />
+                </Button>
+                <Button
+                    onClick={() => setIsUpdating(state => !state)}
+                >
+                    <Edit />
+                </Button>
+            </Paper>
+        );
+    } else {
+        return (
+            <UpdateEntryForm
+                _id={_id}
+                title={title}
+                author={author}
+                isbn={isbn}
+                genre={genre}
+                publicationYear={publicationYear}
+            />
+        );
+    };
 };

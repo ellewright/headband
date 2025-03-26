@@ -27,6 +27,19 @@ export async function fetchAllEntriesfromDatabase() {
     return await response.json();
 };
 
+export async function updateEntryInDatabase(id: string, updatedEntry: NewEntry) {
+    const response = await fetch(`${baseURL}/api/entries/${id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(updatedEntry)
+    });
+
+    if (!response.ok) throw new Error("Failed to update entry.");
+    return await response.json();
+}
+
 export async function deleteEntryFromDatabase(id: string) {
     const response = await fetch(`${baseURL}/api/entries/${id}`, {
         method: "DELETE"
