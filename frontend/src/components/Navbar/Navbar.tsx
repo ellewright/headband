@@ -1,7 +1,8 @@
+import { JSX } from "@emotion/react/jsx-runtime";
 import { AppBar, Button, Stack, Toolbar, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-export default function Navbar() {
+export default function Navbar(): JSX.Element {
     const navigate = useNavigate();
 
     return (
