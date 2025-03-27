@@ -7,11 +7,16 @@ import { Edit } from "@mui/icons-material";
 import UpdateEntryForm from "../UpdateEntryForm/UpdateEntryForm";
 import { JSX } from "@emotion/react/jsx-runtime";
 
-export default function EntryCard({ _id, isbn, title, author, genre, publicationYear }: Entry): JSX.Element {
+export default function EntryCard({ _id, isbn, title, author, genre, publicationYear, onDelete }: Entry): JSX.Element {
     const [isUpdating, setIsUpdating] = useState<boolean>(false);
 
     async function handleDelete(id: string) {
-        await deleteEntryFromDatabase(id);
+        try {
+            await deleteEntryFromDatabase(id);
+            onDelete();
+        } catch (error) {
+            console.error("Failed to delete entry:", error);
+        };
     };
 
     if (!isUpdating) {

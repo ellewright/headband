@@ -7,4 +7,5 @@ export interface Entry {
     genre?: string;
     createdAt?: Date;
     updatedAt?: Date;
+    onDelete: () => void;
 }
