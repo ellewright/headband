@@ -2,8 +2,9 @@ import { FormControl, Input, InputLabel } from "@mui/material";
 import { useState } from "react";
 import { NewEntry } from "../../interfaces/NewEntry";
 import { updateEntryInDatabase } from "../../api/config";
+import { JSX } from "@emotion/react/jsx-runtime";
 
-export default function UpdateEntryForm({ _id, title, author, isbn, genre, publicationYear }: NewEntry) {
+export default function UpdateEntryForm({ _id, title, author, isbn, genre, publicationYear }: NewEntry): JSX.Element {
     const [newEntry, setNewEntry] = useState<NewEntry>({
         title: title,
         author: author,

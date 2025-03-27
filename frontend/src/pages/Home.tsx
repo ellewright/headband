@@ -3,8 +3,9 @@ import { useEffect, useState } from "react";
 import { Entry } from "../interfaces/Entry";
 import { fetchAllEntriesfromDatabase } from "../api/config";
 import EntryCard from "../components/EntryCard/EntryCard";
+import { JSX } from "@emotion/react/jsx-runtime";
 
-export default function Home() {
+export default function Home(): JSX.Element {
     const [entries, setEntries] = useState<Entry[]>([]);
 
     useEffect(() => {

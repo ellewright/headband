@@ -5,8 +5,9 @@ import { deleteEntryFromDatabase } from "../../api/config";
 import { useState } from "react";
 import { Edit } from "@mui/icons-material";
 import UpdateEntryForm from "../UpdateEntryForm/UpdateEntryForm";
+import { JSX } from "@emotion/react/jsx-runtime";
 
-export default function EntryCard({ _id, isbn, title, author, genre, publicationYear }: Entry) {
+export default function EntryCard({ _id, isbn, title, author, genre, publicationYear }: Entry): JSX.Element {
     const [isUpdating, setIsUpdating] = useState<boolean>(false);
 
     async function handleDelete(id: string) {
