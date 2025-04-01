@@ -6,6 +6,7 @@ export interface Enterable extends Document {
     author?: string;
     publicationYear?: number;
     genre?: string;
+    review: number;
     createdAt?: Date;
     updatedAt?: Date;
 }
@@ -30,6 +31,10 @@ const entrySchema = new mongoose.Schema<Enterable>({
     genre: {
         type: String,
         required: false
+    },
+    review: {
+        type: Number,
+        required: true
     }
 }, {
     timestamps: true

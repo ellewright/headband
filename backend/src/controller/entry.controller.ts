@@ -13,11 +13,20 @@ const statusCodes = {
 export async function createNewEntry(req: Request, res: Response): Promise<void> {
     const newEntry = new Entry(req.body);
 
-    if (!newEntry.title) {
+    if (!newEntry.title || !newEntry.review) {
         res.status(statusCodes.BAD_REQUEST).json({
             success: false,
-            message: "Please provide a name for the new entry."
+            message: "Please provide a title and review for the new entry."
         });
+        return;
+    };
+
+    if (newEntry.review < 0 || newEntry.review > 5) {
+        res.status(statusCodes.BAD_REQUEST).json({
+            success: false,
+            message: "Please provide a review within the range of 0 and 5, inclusive."
+        });
+        return;
     };
 
     try {
@@ -27,6 +36,7 @@ export async function createNewEntry(req: Request, res: Response): Promise<void>
             message: "Entry created successfully.",
             data: newEntry
         });
+        return;
     } catch (error: unknown) {
         if (error instanceof Error) {
             console.error(`Error in creating new entry: ${error.message}`);
@@ -34,12 +44,14 @@ export async function createNewEntry(req: Request, res: Response): Promise<void>
                 success: false,
                 message: `Server error in creating new entry: ${error.message}`
             });
+            return;
         } else {
             console.error("An unknown error occurred in creating new entry.");
             res.status(statusCodes.INTERNAL_SERVER_ERROR).json({
                 success: false,
                 message: "An unknown error occurred in creating new entry."
             });
+            return;
         };
     };
 };
@@ -52,6 +64,7 @@ export async function getAllEntries(req: Request, res: Response): Promise<void> 
             message: "Successfully fetched all entries.",
             data: entries
         });
+        return;
     } catch (error: unknown) {
         if (error instanceof Error) {
             console.error(`Error in fetching all entries: ${error.message}`);
@@ -59,12 +72,14 @@ export async function getAllEntries(req: Request, res: Response): Promise<void> 
                 success: false,
                 message: "Server error in fetching all entries"
             });
+            return;
         } else {
             console.error("An unknown error occurred in fetching all entries.");
             res.status(statusCodes.INTERNAL_SERVER_ERROR).json({
                 success: false,
                 message: "An unknown error occurred in fetching all entries."
             });
+            return;
         };
     };
 };
@@ -73,11 +88,20 @@ export async function updateEntry(req: Request, res: Response): Promise<void> {
     const { id } = req.params;
     const updatedEntry = req.body;
 
-    if (!updatedEntry.title) {
+    if (!updatedEntry.title || !updatedEntry.review) {
         res.status(statusCodes.BAD_REQUEST).json({
             success: false,
-            message: "Please provide a name for the updated entry."
+            message: "Please provide a name and review for the updated entry."
         });
+        return;
+    };
+
+    if (updatedEntry.review < 0 || updatedEntry.review > 5) {
+        res.status(statusCodes.BAD_REQUEST).json({
+            success: false,
+            message: "Please provide a review within the range of 0 and 5, inclusive."
+        });
+        return;
     };
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -85,6 +109,7 @@ export async function updateEntry(req: Request, res: Response): Promise<void> {
             success: false,
             message: "Please provide a valid ID to update."
         });
+        return;
     };
 
     try {
@@ -94,6 +119,7 @@ export async function updateEntry(req: Request, res: Response): Promise<void> {
             message: "Entry updated successfully.",
             body: entryToUpdate
         });
+        return;
     } catch (error: unknown) {
         if (error instanceof Error) {
             console.error(`Error in updating entry: ${error.message}`);
@@ -101,12 +127,14 @@ export async function updateEntry(req: Request, res: Response): Promise<void> {
                 success: false,
                 message: `Error in updating entry: ${error.message}`
             });
+            return;
         } else {
             console.error("An unknown error occurred in updating entry.");
             res.status(statusCodes.INTERNAL_SERVER_ERROR).json({
                 success: false,
                 message: "An unknown error occurred in updating entry."
             });
+            return;
         };
     };
 };
@@ -119,11 +147,13 @@ export async function deleteEntry(req: Request, res: Response): Promise<void> {
             success: false,
             message: "Please provide a valid ID to delete."
         });
+        return;
     };
 
     try {
         await Entry.findByIdAndDelete(id);
         res.status(statusCodes.NO_CONTENT).send();
+        return;
     } catch (error: unknown) {
         if (error instanceof Error) {
             console.error(`Error in deleting entry: ${error.message}`);
@@ -131,12 +161,14 @@ export async function deleteEntry(req: Request, res: Response): Promise<void> {
                 success: false,
                 message: `Server error in deleting entry: ${error.message}`
             });
+            return;
         } else {
             console.error("An unknown error occurred in updating entry.");
             res.status(statusCodes.INTERNAL_SERVER_ERROR).json({
                 success: false,
                 message: "An unknown error occurred in updating entry."
             });
+            return;
         };
     };
 };
