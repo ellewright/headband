@@ -4,13 +4,14 @@ import { NewEntry } from "../../interfaces/NewEntry";
 import { updateEntryInDatabase } from "../../api/config";
 import { JSX } from "@emotion/react/jsx-runtime";
 
-export default function UpdateEntryForm({ _id, title, author, isbn, genre, publicationYear }: NewEntry): JSX.Element {
+export default function UpdateEntryForm({ _id, title, author, isbn, genre, publicationYear, review }: NewEntry): JSX.Element {
     const [newEntry, setNewEntry] = useState<NewEntry>({
         title: title,
         author: author,
         isbn: isbn,
         genre: genre,
-        publicationYear: publicationYear
+        publicationYear: publicationYear,
+        review: review
     });
 
     async function handleSubmit(id: string | undefined, updatedEntry: NewEntry) {
@@ -69,13 +70,23 @@ export default function UpdateEntryForm({ _id, title, author, isbn, genre, publi
                     }
                 />
             </FormControl>
-            <FormControl>
+            <FormControl sx={{ mb: 1 }}>
                 <InputLabel htmlFor="publicationYear">Year published</InputLabel>
                 <Input
                     id="publicationYear"
                     value={newEntry?.publicationYear}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                         setNewEntry((prev) => ({ ...prev, publicationYear: e.target.value }))
+                    }
+                />
+            </FormControl>
+            <FormControl>
+                <InputLabel htmlFor="review">Stars</InputLabel>
+                <Input
+                    id="review"
+                    value={newEntry?.review}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setNewEntry((prev) => ({ ...prev, review: e.target.value }))
                     }
                 />
             </FormControl>

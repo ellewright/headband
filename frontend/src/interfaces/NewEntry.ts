@@ -5,4 +5,5 @@ export interface NewEntry {
     author?: string;
     publicationYear?: number | string;
     genre?: string;
+    review: number | string;
 }

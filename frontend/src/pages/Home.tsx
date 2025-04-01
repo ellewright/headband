@@ -44,6 +44,7 @@ export default function Home(): JSX.Element {
                     title={entry.title}
                     author={entry.author}
                     genre={entry.genre}
+                    review={entry.review}
                     publicationYear={entry.publicationYear}
                     onDelete={handleDelete}
                 />

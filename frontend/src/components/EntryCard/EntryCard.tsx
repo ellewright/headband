@@ -7,7 +7,7 @@ import { Edit } from "@mui/icons-material";
 import UpdateEntryForm from "../UpdateEntryForm/UpdateEntryForm";
 import { JSX } from "@emotion/react/jsx-runtime";
 
-export default function EntryCard({ _id, isbn, title, author, genre, publicationYear, onDelete }: Entry): JSX.Element {
+export default function EntryCard({ _id, isbn, title, author, genre, publicationYear, review, onDelete }: Entry): JSX.Element {
     const [isUpdating, setIsUpdating] = useState<boolean>(false);
 
     async function handleDelete(id: string) {
@@ -41,12 +41,15 @@ export default function EntryCard({ _id, isbn, title, author, genre, publication
                 <Typography>
                     {genre}
                 </Typography>
+                <Typography>
+                    {publicationYear}
+                </Typography>
                 <Typography
                     sx={{
                         mb: 1
                     }}
                 >
-                    {publicationYear}
+                    {review}/5 stars
                 </Typography>
                 <Button
                     onClick={() => handleDelete(_id)}
@@ -69,6 +72,7 @@ export default function EntryCard({ _id, isbn, title, author, genre, publication
                 isbn={isbn}
                 genre={genre}
                 publicationYear={publicationYear}
+                review={review}
             />
         );
     };

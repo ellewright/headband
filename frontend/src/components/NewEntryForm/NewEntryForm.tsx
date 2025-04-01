@@ -10,7 +10,8 @@ export default function NewEntryForm(): JSX.Element {
         author: "",
         isbn: "",
         genre: "",
-        publicationYear: ""
+        publicationYear: "",
+        review: ""
     });
 
     async function handleSubmit() {
@@ -68,13 +69,23 @@ export default function NewEntryForm(): JSX.Element {
                     }
                 />
             </FormControl>
-            <FormControl>
+            <FormControl sx={{ mb: 1 }}>
                 <InputLabel htmlFor="publicationYear">Year published</InputLabel>
                 <Input
                     id="publicationYear"
                     value={newEntry?.publicationYear}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                         setNewEntry((prev) => ({ ...prev, publicationYear: e.target.value }))
+                    }
+                />
+            </FormControl>
+            <FormControl>
+                <InputLabel htmlFor="review">Stars</InputLabel>
+                <Input
+                    id="review"
+                    value={newEntry?.review}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setNewEntry((prev) => ({ ...prev, review: e.target.value }))
                     }
                 />
             </FormControl>

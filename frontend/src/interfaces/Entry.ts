@@ -4,6 +4,7 @@ export interface Entry {
     title: string;
     author?: string;
     publicationYear?: number;
+    review: number;
     genre?: string;
     createdAt?: Date;
     updatedAt?: Date;
