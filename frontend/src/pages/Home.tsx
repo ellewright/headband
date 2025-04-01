@@ -1,4 +1,4 @@
-import { Container, Typography } from "@mui/material";
+import { Button, Container, Typography } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
 import { Entry } from "../interfaces/Entry";
 import { fetchAllEntriesfromDatabase } from "../api/config";
@@ -8,19 +8,48 @@ import { JSX } from "@emotion/react/jsx-runtime";
 export default function Home(): JSX.Element {
     const [entries, setEntries] = useState<Entry[]>([]);
     const [refresh, setRefresh] = useState<boolean>(false);
+    const [sorted, setSorted] = useState<boolean>(false);
+    const [sortOrder, setSortOrder] = useState<boolean>(true);
 
     const fetchEntries = useCallback(async () => {
-        try {
-            const response = await fetchAllEntriesfromDatabase();
-            setEntries(response.data);
-        } catch (error) {
-            console.error("Error fetching entries:", error);
-        };
-    }, []);
+        if (!sorted) {
+            try {
+                const response = await fetchAllEntriesfromDatabase();
+                setEntries(response.data);
+            } catch (error) {
+                console.error("Error fetching entries:", error);
+            };
+        } else {
+            if (sortOrder) {
+                try {
+                    const response = await fetchAllEntriesfromDatabase(true);
+                    setEntries(response.data);
+                } catch (error) {
+                    console.error("Error fetching entries:", error);
+                };
+            } else {
+                try {
+                    const response = await fetchAllEntriesfromDatabase(false, true);
+                    setEntries(response.data);
+                } catch (error) {
+                    console.error("Error fetching entries:", error);
+                };
+            }
+        }
+
+    }, [sortOrder]);
 
     useEffect(() => {
         fetchEntries();
     }, [fetchEntries, refresh]);
+
+    function handleSort() {
+        if (!sorted) {
+            setSorted(true);
+        }
+
+        setSortOrder(prev => !prev);
+    };
 
     function handleDelete() {
         setRefresh(prev => !prev);
@@ -36,6 +65,11 @@ export default function Home(): JSX.Element {
             >
                 Entries
             </Typography>
+            <Button
+                onClick={handleSort}
+            >
+                Sort By Review
+            </Button>
             {entries.map((entry) => (
                 <EntryCard
                     _id={entry._id}

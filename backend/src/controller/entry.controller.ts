@@ -58,7 +58,16 @@ export async function createNewEntry(req: Request, res: Response): Promise<void>
 
 export async function getAllEntries(req: Request, res: Response): Promise<void> {
     try {
-        const entries = await Entry.find({});
+        const {asc, desc} = req.query;
+        let sortOption = {};
+
+        if (asc === "true") {
+            sortOption = { review: 1 };
+        } else if (desc === "true") {
+            sortOption = { review: -1 };
+        }
+
+        const entries = await Entry.find({}).sort(sortOption);
         res.status(statusCodes.OK).json({
             success: true,
             message: "Successfully fetched all entries.",

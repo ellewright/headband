@@ -20,8 +20,8 @@ export async function addNewEntryToDatabase(entry: NewEntry): Promise<void> {
     return await response.json();
 };
 
-export async function fetchAllEntriesfromDatabase() {
-    const response = await fetch(`${baseURL}/api/entries`);
+export async function fetchAllEntriesfromDatabase(asc: boolean = false, desc: boolean = false) {
+    const response = await fetch(`${baseURL}/api/entries${asc ? "?asc=true" : desc ? "?desc=true" : ""}`);
 
     if (!response.ok) throw new Error("Failed to fetch all entries.");
     return await response.json();
